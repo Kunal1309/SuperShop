@@ -8,55 +8,9 @@ import { cartData } from "../App";
 import Color from "../Components/Color";
 
 const Cart = () => {
-  // const [count, setCount] = useState(0);
-  const {cartproduct} = useContext(cartData);
-  const count = cartproduct.reduce(function (acc, obj) { return acc + Number(obj.price); }, 0);
-  // const [cartproduct, setCartproduct] = useState([
-  //   {
-  //     id: 1,
-  //     images: `${watch}`,
-  //     title: "Watch",
-  //     size: "abc",
-  //     color: "red",
-  //     price: 100,
-  //   },
-  // ]);
-
-  // useEffect(() => {
-  //   async function productData() {
-  //     const Data = await fetch("https://api.escuelajs.co/api/v1/products");
-  //     const res = await Data.json();
-  //     setData(res);
-  //   }
-
-  //   productData();
-  // }, []);
-
-  // useEffect(() => {
-  //   data.map((ele, ind) => {
-  //     console.log(ele.id == param.id)
-  //     if (ele.id == param.id) {
-  //       setCartproduct([
-  //         ...cartproduct,
-  //         {
-  //           id: `${ele.id}`,
-  //           images: `${ele.images[0]}`,
-  //           title: `${ele.title}`,
-  //           size: "abc",
-  //           color: "red",
-  //           price: `${ele.price}`,
-  //         },
-  //       ]);
-  //     }
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   cartproduct.map((ele) => {
-  //     let temp = Number(count);
-  //     setCount(Number(count) + Number(ele.price) + temp);
-  //   });
-  // }, [cartproduct]);
+  const [numb, setNumb] = useState(1);
+  const {cartproduct, getCartDataAfterRemoved} = useContext(cartData);
+  const [count, setCount] = useState(cartproduct.reduce(function (acc, obj) { return acc + Number(obj.price); }, 0));
 
   return (
     <div>
@@ -97,6 +51,11 @@ const Cart = () => {
                   <div className="cart-col-3 d-flex align-items-center gap-15">
                     <div>
                       <input
+                      onChange={(e)=>{setNumb(e.target.value);
+                      if(numb>1){
+                       setCount(cartproduct.reduce(function (acc, obj) { return acc + Number(obj.price); }, 0) + (element.price * numb))
+                      }}}
+                        value={numb}
                         min={1}
                         max={10}
                         className="form-control"
@@ -106,11 +65,11 @@ const Cart = () => {
                       />
                     </div>
                     <div>
-                      <AiTwotoneDelete className="text-danger fs-3" />
+                      <AiTwotoneDelete onClick={()=>getCartDataAfterRemoved(element.title)} className="text-danger fs-3" />
                     </div>
                   </div>
                   <div className="cart-col-4">
-                    <h5 className="price">$ {element.price}</h5>
+                    <h5 className="price">$ {element.price * numb}</h5>
                   </div>
                 </div>
               );

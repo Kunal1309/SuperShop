@@ -5,7 +5,7 @@ import Meta from "../Components/Meta";
 import Container from "./Container";
 
 const Wishlist = () => {
-  const { wishproduct } = useContext(cartData);
+  const { wishproduct, getWishDataAfterRemoved } = useContext(cartData);
   return (
     <div>
       <Meta title={"Wishlist"} />
@@ -17,6 +17,7 @@ const Wishlist = () => {
               <div className="col-3">
               <div className="wishlist-card position-relative">
                 <img
+                onClick={()=>getWishDataAfterRemoved(ele.title)}
                   src="images/cross.svg"
                   className="position-absolute cross img-fluid"
                   alt="cross"

@@ -44,6 +44,11 @@ function App() {
     setCartproduct([...cartproduct, items]);
   }
 
+  function getCartDataAfterRemoved(itemTitle){
+    const result = cartproduct.filter((ele)=> ele.title != itemTitle)
+    setCartproduct(result);
+  }
+
   const [wishproduct, setWishproduct] = useState([
     {
       id: 1,
@@ -57,9 +62,14 @@ function App() {
     setWishproduct([...wishproduct, items]);
   }
 
+  function getWishDataAfterRemoved(itemTitle){
+    const result = wishproduct.filter((ele)=> ele.title != itemTitle)
+    setWishproduct(result);
+  }
+
   return (
     <div className="App">
-      <cartData.Provider value={{cartproduct:cartproduct, getCartData:getCartData, wishproduct:wishproduct, getWishData:getWishData}}>
+      <cartData.Provider value={{cartproduct:cartproduct, getCartData:getCartData, getCartDataAfterRemoved:getCartDataAfterRemoved, wishproduct:wishproduct, getWishData:getWishData, getWishDataAfterRemoved:getWishDataAfterRemoved}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
