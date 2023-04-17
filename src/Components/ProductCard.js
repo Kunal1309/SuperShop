@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import prodcompare from "../images/prodcompare.svg";
@@ -6,6 +6,7 @@ import wish from "../images/wish.svg";
 import addcart from "../images/add-cart.svg";
 import view from "../images/view.svg";
 import { InfinitySpin } from "react-loader-spinner";
+import { cartData } from "../App";
 
 
 const ProductCard = (props) => {
@@ -14,6 +15,7 @@ const ProductCard = (props) => {
   let location = useLocation();
 
   const [data, setData] = useState([]);
+  const {getWishData} = useContext(cartData)
 
   useEffect(() => {
     setLoading(true);
@@ -41,6 +43,13 @@ const ProductCard = (props) => {
       ) : (
         data.map((ele, index) => {
           if (ele.id <= props.ids) {
+            const Element = {
+              id: `${ele.id}`,
+              images: `${ele.images[0]}`,
+              title: `${ele.title}`,
+              price: `${ele.price}`,
+            };
+  
             return (
               <div
                 className={` ${
@@ -54,7 +63,7 @@ const ProductCard = (props) => {
                 >
                   <div className="wishlist-icons position-absolute">
                     <button className="border-0 bg-transparent">
-                      <Link>
+                      <Link onClick={()=>getWishData(Element)} to={`/wishlist`} >
                         <img src={wish} alt="wish" />
                       </Link>
                     </button>

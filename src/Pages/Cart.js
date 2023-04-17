@@ -1,61 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BreadCrumb from "../Components/BreadCrumb";
 import Meta from "../Components/Meta";
-import watch from "../images/watch.jpg";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { Link, useParams } from "react-router-dom";
 import Container from "./Container";
+import { cartData } from "../App";
+import Color from "../Components/Color";
 
 const Cart = () => {
-  const [count, setCount] = useState(0);
-  const param = useParams();
-  const [data, setData] = useState([]);
-  // const [popular, setPopular] = useState([]);
-  const [cartproduct, setCartproduct] = useState([
-    {
-      id: 1,
-      images: `${watch}`,
-      title: "Watch",
-      size: "abc",
-      color: "red",
-      price: 100,
-    },
-  ]);
-
-  useEffect(() => {
-    async function productData() {
-      const Data = await fetch("https://api.escuelajs.co/api/v1/products");
-      const res = await Data.json();
-      setData(res);
-      // const Pop = await fetch("https://fakestoreapi.com/products/");
-      // const prop = await Pop.json();
-      // setPopular(prop);
-    }
-
-    productData();
-  }, []);
-
-  useEffect(() => {
-    data.map((ele, ind) => {
-      if (ele.id == param.id) {
-        setCartproduct([
-          ...cartproduct,
-          {
-            id: `${ele.id}`,
-            images: `${ele.images[0]}`,
-            title: `${ele.title}`,
-            size: "abc",
-            color: "red",
-            price: `${ele.price}`,
-          },
-        ]);
-      }
-    });
-    console.log(cartproduct);
-  },[]);
+  // const [count, setCount] = useState(0);
+  const {cartproduct} = useContext(cartData);
+  const count = cartproduct.reduce(function (acc, obj) { return acc + Number(obj.price); }, 0);
+  // const [cartproduct, setCartproduct] = useState([
+  //   {
+  //     id: 1,
+  //     images: `${watch}`,
+  //     title: "Watch",
+  //     size: "abc",
+  //     color: "red",
+  //     price: 100,
+  //   },
+  // ]);
 
   // useEffect(() => {
-  //   popular.map((ele, ind) => {
+  //   async function productData() {
+  //     const Data = await fetch("https://api.escuelajs.co/api/v1/products");
+  //     const res = await Data.json();
+  //     setData(res);
+  //   }
+
+  //   productData();
+  // }, []);
+
+  // useEffect(() => {
+  //   data.map((ele, ind) => {
+  //     console.log(ele.id == param.id)
   //     if (ele.id == param.id) {
   //       setCartproduct([
   //         ...cartproduct,
@@ -70,14 +49,14 @@ const Cart = () => {
   //       ]);
   //     }
   //   });
-  //   console.log(cartproduct);
-  // }, [cartproduct]);
+  // }, []);
 
-  useEffect(() => {
-    cartproduct.map((ele) => {
-      return setCount(count + ele.price);
-    });
-  }, [cartproduct]);
+  // useEffect(() => {
+  //   cartproduct.map((ele) => {
+  //     let temp = Number(count);
+  //     setCount(Number(count) + Number(ele.price) + temp);
+  //   });
+  // }, [cartproduct]);
 
   return (
     <div>

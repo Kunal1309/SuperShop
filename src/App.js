@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Components/Layout";
@@ -22,10 +22,44 @@ import SingleProduct from "./Pages/SingleProduct";
 import PopSingle from "./Pages/PopSingle";
 import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
+import watch from "./images/watch.jpg";
+import Color from "./Components/Color";
+
+export const cartData = createContext();
 
 function App() {
+
+  const [cartproduct, setCartproduct] = useState([
+    {
+      id: 1,
+      images: `${watch}`,
+      title: "Watch",
+      size: "abc",
+      color: <Color/>,
+      price: 100,
+    },
+  ]);
+
+  function getCartData(items){
+    setCartproduct([...cartproduct, items]);
+  }
+
+  const [wishproduct, setWishproduct] = useState([
+    {
+      id: 1,
+      images: `${watch}`,
+      title: "Watch",
+      price: 100,
+    },
+  ]);
+
+  function getWishData(items){
+    setWishproduct([...wishproduct, items]);
+  }
+
   return (
     <div className="App">
+      <cartData.Provider value={{cartproduct:cartproduct, getCartData:getCartData, wishproduct:wishproduct, getWishData:getWishData}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -37,7 +71,7 @@ function App() {
               <Route path="product/popular/:id" element={<PopSingle />} />
               <Route path="blogs" element={<Blog />} />
               <Route path="blogs/:id" element={<SingleBlog />} />
-              <Route path="cart/:id" element={<Cart />} />
+              <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<Checkout />} />
               <Route path="compare-product" element={<CompareProduct />} />
               <Route path="wishlist" element={<Wishlist />} />
@@ -52,6 +86,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+      </cartData.Provider>
     </div>
   );
 }

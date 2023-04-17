@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { cartData } from "../App";
 
 const Header = () => {
+  const {cartproduct} = useContext(cartData);
+  const count = cartproduct.reduce(function (acc, obj) { return acc + Number(obj.price); }, 0);
   return (
     <div>
       <header className="header-top-strip py-3">
@@ -73,11 +76,11 @@ const Header = () => {
                   </Link>
                 </div>
                 <div>
-                  <Link to="/cart/:id" className="d-flex align-item-center gap-10 text-white">
+                  <Link to="/cart" className="d-flex align-item-center gap-10 text-white">
                     <img src="/images/cart.svg" alt="cart" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">1</span>
-                      <p className="mb-0">$ 500</p>
+                      <span className="badge bg-white text-dark">{cartproduct.length}</span>
+                      <p className="mb-0">$ {count}</p>
                     </div>
                   </Link>
                 </div>

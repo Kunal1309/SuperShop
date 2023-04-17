@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../Components/BreadCrumb";
 import Meta from "../Components/Meta";
@@ -8,13 +8,14 @@ import Color from "../Components/Color";
 import { BiGitCompare, BiHeart } from "react-icons/bi";
 import Container from "./Container";
 import { Link, useParams } from "react-router-dom";
-import Cart from "./Cart";
+import { cartData } from "../App";
 
 const SingleProduct = () => {
   const [data, setData] = useState([]);
   const param = useParams();
   const [orderedProduct, setOrderedProduct] = useState(true);
- 
+  const { getCartData, getWishData } = useContext(cartData);
+
   useEffect(() => {
     async function productData() {
       const Data = await fetch("https://api.escuelajs.co/api/v1/products");
@@ -44,7 +45,16 @@ const SingleProduct = () => {
             height: 600,
             zoomWidth: 600,
             img: `${ele.images[0]}`,
-          }
+          };
+
+          const Element = {
+            id: `${ele.id}`,
+            images: `${ele.images[0]}`,
+            title: `${ele.title}`,
+            size: "abc",
+            color: <Color/>,
+            price: `${ele.price}`,
+          };
 
           return (
             <div>
@@ -78,9 +88,7 @@ const SingleProduct = () => {
                   <div className="col-6">
                     <div className="main-product-details">
                       <div className="border-bottom">
-                        <h3 className="title">
-                          {ele.title}
-                        </h3>
+                        <h3 className="title">{ele.title}</h3>
                       </div>
                       <div className="border-bottom py-3">
                         <p className="price">$ {ele.price}</p>
@@ -154,7 +162,12 @@ const SingleProduct = () => {
                             />
                           </div>
                           <div className="d-flex align-items-center gap-30 ms-5">
-                            <Link to={`/cart/${ele.id}`} className="button border-0" type="submit">
+                            <Link
+                            onClick={()=>getCartData(Element)}
+                              to={`/cart`}
+                              className="button border-0"
+                              type="submit"
+                            >
                               Add To Cart
                             </Link>
                             <Link to="/signup" className="button signup">
@@ -208,9 +221,7 @@ const SingleProduct = () => {
                       <div className="col-12">
                         <h4>Description</h4>
                         <div className="bg-white p-3">
-                          <p>
-                            {ele.description}
-                          </p>
+                          <p>{ele.description}</p>
                         </div>
                       </div>
                     </div>
@@ -309,7 +320,7 @@ const SingleProduct = () => {
                     </div>
                   </div>
                   <div className="row">
-                    <ProductCard ids={30}/>
+                    <ProductCard ids={30} />
                   </div>
                 </Container>
               </Container>

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
+import { cartData } from "../App";
+import Color from "../Components/Color";
 
 const SpeialProduct = (props) => {
   const [spProducts, setSpProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const {getCartData} = useContext(cartData);
 
   useEffect(() => {
     setLoading(true);
@@ -33,6 +36,14 @@ const SpeialProduct = (props) => {
       ) : (
         spProducts.map((ele, index) => {
           if (ele.id <= props.special) {
+            const Element = {
+              id: `${ele.id}`,
+              images: `${ele.images[0]}`,
+              title: `${ele.title}`,
+              size: "abc",
+              color: <Color/>,
+              price: `${ele.price}`,
+            };
             return (
               <div key={index} className="col-6">
                 <div className="special-product-card mb-3">
@@ -94,7 +105,7 @@ const SpeialProduct = (props) => {
                           ></div>
                         </div>
                       </div>
-                      <Link className="button">Add to Cart</Link>
+                      <Link onClick={()=>getCartData(Element)} to={`/cart`} className="button">Add to Cart</Link>
                     </div>
                   </div>
                 </div>

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { GiFastBackwardButton } from "react-icons/gi";
 import watch from "../images/watch.jpg";
 import Container from "./Container";
+import { cartData } from "../App";
 
 const Checkout = () => {
+  const { cartproduct } = useContext(cartData);
+  const count = cartproduct.reduce(function (acc, obj) {
+    return acc + Number(obj.price);
+  }, 0);
   return (
     <div>
       <Container class1="checkout-wrapper home-wrapper-2 py-5">
@@ -122,40 +127,21 @@ const Checkout = () => {
             </div>
             <div className="col-5">
               <div className="border-bottom py-4">
-                <div className="d-flex mb-2 gap-10 align-items-center">
-                  <div className="w-75 d-flex gap-10">
-                    <div className="w-25 position-relative">
-                      <span
-                        style={{ top: "-10px", right: "2px" }}
-                        className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
-                      >
-                        1
-                      </span>
-                      <img className="img-fluid" src={watch} alt="watch" />
-                    </div>
-                    <div>
-                      <h5 className="total-price">hbhsjcdc</h5>
-                      <p className="total-price">s / #hjbjnk</p>
-                    </div>
-                  </div>
-                  <div className="flex-grow-1">
-                    <h5 className="total">$ 10000</h5>
-                  </div>
-                </div>
+               <b>All Cart Products</b>
               </div>
               <div className="border-bottom py-4">
                 <div className="d-flex justify-content-between align-items-center">
                   <p className="total">SubTotal</p>
-                  <p className="total-price">$ 10000</p>
+                  <p className="total-price">$ {count}</p>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                   <p className="mb-0 total">Shipping</p>
-                  <p className="mb-0 total-price">$ 10000</p>
+                  <p className="mb-0 total-price">$ 100</p>
                 </div>
               </div>
               <div className="d-flex justify-content-between align-items-center border-bottom py-4">
                 <h4 className="total">Total</h4>
-                <h5 className="total-price">$ 10000</h5>
+                <h5 className="total-price">$ {count + 100}</h5>
               </div>
             </div>
           </div>

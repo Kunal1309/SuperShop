@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../Components/BreadCrumb";
 import Meta from "../Components/Meta";
@@ -9,11 +9,13 @@ import { BiGitCompare, BiHeart } from "react-icons/bi";
 import Container from "./Container";
 import { Link, useParams } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
+import { cartData } from "../App";
 
 const SingleProduct = () => {
   const [popular, setPopular] = useState([]);
   const param = useParams();
   const [loading, setLoading] = useState(false);
+  const {getCartData} = useContext(cartData)
 
   useEffect(() => {
     setLoading(true);
@@ -56,6 +58,15 @@ const SingleProduct = () => {
               height: 600,
               zoomWidth: 400,
               img: `${ele.image}`,
+            };
+
+            const Element = {
+              id: `${ele.id}`,
+              images: `${ele.image}`,
+              title: `${ele.title}`,
+              size: "abc",
+              color: <Color/>,
+              price: `${ele.price}`,
             };
 
             return (
@@ -148,7 +159,7 @@ const SingleProduct = () => {
                               />
                             </div>
                             <div className="d-flex align-items-center gap-30 ms-5">
-                              <Link to={`/cart/${ele.id}`} className="button border-0" type="submit">
+                              <Link onClick={()=>getCartData(Element)} to={`/cart`} className="button border-0" type="submit">
                                 Add To Cart
                               </Link>
                               <Link to="/signup" className="button signup">
