@@ -884,3 +884,10 @@ footer input .input-group-text{
 .rojgar{
   font-size: 50px;
 }
+
+/* Category */
+.category-col{
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+}

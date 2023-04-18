@@ -24,6 +24,11 @@ import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
 import watch from "./images/watch.jpg";
 import Color from "./Components/Color";
+import Electronics from "./Pages/Electronics";
+import Clothes from "./Pages/Clothes";
+import Furniture from "./Pages/Furniture";
+import Sports from "./Pages/Sports";
+import Shoes from "./Pages/Shoes";
 
 export const cartData = createContext();
 
@@ -115,6 +120,11 @@ function App() {
               <Route path="refund-policy" element={<RefundPolicy />} />
               <Route path="shipping-policy" element={<ShippingPolicy />} />
               <Route path="term-conditions" element={<TermAndConditions />} />
+              <Route path="category/electronics" element={<Electronics />} />
+              <Route path="category/sports" element={<Sports />} />
+              <Route path="category/clothes" element={<Clothes />} />
+              <Route path="category/furniture" element={<Furniture />} />
+              <Route path="category/shoes" element={<Shoes />} />
             </Route>
           </Routes>
         </BrowserRouter>
