@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { cartData } from "../App";
 
 const Header = () => {
+  const {userName} = useContext(cartData);
   const {cartproduct} = useContext(cartData);
   const count = cartproduct.reduce(function (acc, obj) { return acc + Number(obj.price); }, 0);
   return (
@@ -71,7 +72,7 @@ const Header = () => {
                   <Link to="login" className="d-flex align-item-center gap-10 text-white">
                     <img src="/images/user.svg" alt="user" />
                     <p className="mb-0">
-                      LogIn <br/>My Account
+                      {userName} <br/>My Account
                     </p>
                   </Link>
                 </div>

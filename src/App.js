@@ -28,6 +28,28 @@ import Color from "./Components/Color";
 export const cartData = createContext();
 
 function App() {
+  const [userName, setUserName] = useState('LogIn');
+  const [user, setUser] = useState([
+    {
+      email: "titarekunal@gmail.com",
+      password: "Kunal12345",
+      name: "Kunal",
+      number: "6202745560",
+    },
+  ])
+
+  function getUserData(items){
+    setUser([...user, items]);
+    console.log(user)
+  }
+
+  function checkUser(items){
+    user.map((ele)=>{
+      if(ele.email == items.email && ele.password == items.password){
+        setUserName(ele.name)
+      }
+    })
+  }
 
   const [cartproduct, setCartproduct] = useState([
     {
@@ -69,7 +91,7 @@ function App() {
 
   return (
     <div className="App">
-      <cartData.Provider value={{cartproduct:cartproduct, getCartData:getCartData, getCartDataAfterRemoved:getCartDataAfterRemoved, wishproduct:wishproduct, getWishData:getWishData, getWishDataAfterRemoved:getWishDataAfterRemoved}}>
+      <cartData.Provider value={{use:user, getUserData:getUserData, checkUser:checkUser, userName:userName, cartproduct:cartproduct, getCartData:getCartData, getCartDataAfterRemoved:getCartDataAfterRemoved, wishproduct:wishproduct, getWishData:getWishData, getWishDataAfterRemoved:getWishDataAfterRemoved}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
