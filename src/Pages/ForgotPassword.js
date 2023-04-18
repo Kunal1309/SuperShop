@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import BreadCrumb from "../Components/BreadCrumb";
 import Meta from "../Components/Meta";
 import { Link } from "react-router-dom";
 import Container from "./Container";
-import CustomInput from "../Components/CustomInput";
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  function Recover() {
+    if (email.length >= 1) {
+      alert("recovery mail sent to your mail-Id");
+      setEmail("");
+    } else {
+      alert("please provide mail-Id");
+    }
+  }
   return (
     <div>
       <Meta title={"Forgot Password"} />
@@ -18,15 +26,26 @@ const ForgotPassword = () => {
               <p className="text-center mt-2 mb-3">
                 We will send you an email to reset your Password
               </p>
-              <form action="" className="d-flex flex-column gap-15">
-                  <CustomInput
-                    type="email"
-                    name="email"
-                    placeholder="Email please..."
-                  />
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                action=""
+                className="d-flex flex-column gap-15"
+              >
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  name="email"
+                  placeholder="Email please..."
+                  className={`form-control`}
+                />
                 <div>
                   <div className="mt-3 d-flex flex-column justify-content-center align-items-center gap-15">
-                    <button className="button border-0" type="submit">
+                    <button
+                      onClick={Recover}
+                      className="button border-0"
+                      type="submit"
+                    >
                       Submit
                     </button>
                     <Link to="/login">Cancel</Link>

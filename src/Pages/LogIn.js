@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import BreadCrumb from "../Components/BreadCrumb";
 import Meta from "../Components/Meta";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Container from "./Container";
 import { cartData } from "../App";
 
 const LogIn = (event) => {
-  const userdetails = JSON.parse(localStorage.getItem("customer"));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { checkUser, userName } = useContext(cartData);
+  const { checkUser} = useContext(cartData);
   const Element = {
     email: email,
     password: password,
@@ -41,20 +40,20 @@ const LogIn = (event) => {
                   className="d-flex flex-column gap-15"
                 >
                   <input
-                    style={{border:"none", margin:"5px", padding:"5px", borderRadius:"10px", backgroundColor:"#dcbdbd"}}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     name="email"
                     placeholder="Email please..."
+                    className={`form-control`}
                   />
                   <input
-                    style={{border:"none", margin:"5px", padding:"5px", borderRadius:"10px", backgroundColor:"#dcbdbd"}}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     name="password"
                     placeholder="Password here..."
+                    className={`form-control`}
                   />
                   <div>
                     <Link to="/forgot-password">Forgot Password ?</Link>
